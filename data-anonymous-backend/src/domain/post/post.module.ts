@@ -7,10 +7,16 @@ import { Category, Comment, Post } from './entities';
 import { CategoryService, PostService } from './services';
 import {
   CreateCategoryUsecase,
+  CreatePostUsecase,
   FindAllCategoryUsecase,
+  FindAllPostUsecase,
   FindCategoryByIdUsecase,
+  FindPostByIdUsecase,
+  SoftDeletePostUsecase,
+  UpdatePostUsecase,
 } from './usecase';
 import { CategoryController } from './controllers';
+import { PostController } from './controllers/post.controller';
 
 @Module({
   imports: [
@@ -18,7 +24,7 @@ import { CategoryController } from './controllers';
     JwtModule,
     UserModule,
   ],
-  controllers: [CategoryController],
+  controllers: [CategoryController, PostController],
   providers: [
     JwtService,
     PostService,
@@ -27,6 +33,12 @@ import { CategoryController } from './controllers';
     CreateCategoryUsecase,
     FindAllCategoryUsecase,
     FindCategoryByIdUsecase,
+
+    CreatePostUsecase,
+    FindAllPostUsecase,
+    FindPostByIdUsecase,
+    SoftDeletePostUsecase,
+    UpdatePostUsecase,
   ],
   exports: [PostService, CategoryService],
 })

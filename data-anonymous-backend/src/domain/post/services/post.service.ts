@@ -1,8 +1,17 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from '../entities';
-import { generatePagination, getPaginationValue } from '@app/common/utils';
+import {
+  DEFAULT_ITEM_PER_PAGE,
+  DEFAULT_PAGE,
+  generatePagination,
+  getPaginationValue,
+} from '@app/common/utils';
 import { CreatePostDto, UpdatePostDto } from '../dto';
 import { UserService } from '@app/domain/user/services';
 import { CategoryService } from './category.service';
@@ -38,11 +47,11 @@ export class PostService {
     }
   }
 
-  async findAll({ page, pageSize }: { page: number; pageSize: number }) {
+  async findAll({ page, pageSize }: { page?: number; pageSize?: number }) {
     try {
       const { skip, take } = getPaginationValue({
-        ...(page ? { page } : {}),
-        ...(pageSize ? { pageSize } : {}),
+        page: page || DEFAULT_PAGE,
+        pageSize: pageSize || DEFAULT_ITEM_PER_PAGE,
       });
 
       const [posts, totalCounts] = await this.initQueryBuilder()
@@ -79,7 +88,14 @@ export class PostService {
 
   async updatePost(postId: number, updatePostDto: UpdatePostDto) {
     try {
-      await this.findOne(postId);
+      const { user } = await this.findOne(postId);
+
+      if (user.id !== updatePostDto.userId) {
+        throw new ForbiddenException(
+          'cannot update post since this post is not belong to user',
+        );
+      }
+
       await this._postRepository.update(postId, {
         content: updatePostDto.content,
       });
@@ -90,10 +106,16 @@ export class PostService {
     }
   }
 
-  async softDelete(postId: number) {
+  async softDelete(postId: number, userId: number) {
     try {
-      await this.findOne(postId);
+      const { user } = await this.findOne(postId);
       await this._postRepository.update(postId, { deletedAt: new Date() });
+
+      if (user.id !== userId) {
+        throw new ForbiddenException(
+          'cannot soft delete post since this post is not belong to user',
+        );
+      }
 
       return;
     } catch (error) {
@@ -105,7 +127,8 @@ export class PostService {
     const qb = this._postRepository
       .createQueryBuilder('post')
       .leftJoin('post.category', 'category')
-      .select(['post', 'category']);
+      .leftJoin('post.user', 'user')
+      .select(['post', 'category', 'user']);
 
     return qb;
   }

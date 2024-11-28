@@ -4,4 +4,6 @@ export class UpdatePostDto {
   @IsNotEmpty()
   @IsString()
   content: string;
+
+  userId?: number;
 }

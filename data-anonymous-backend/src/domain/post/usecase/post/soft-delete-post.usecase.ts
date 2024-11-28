@@ -5,7 +5,7 @@ import { PostService } from '../../services';
 export class SoftDeletePostUsecase {
   constructor(private readonly _postService: PostService) {}
 
-  async execute(postId: number) {
-    return await this._postService.softDelete(postId);
+  async execute(postId: number, userId: number) {
+    return await this._postService.softDelete(postId, userId);
   }
 }
