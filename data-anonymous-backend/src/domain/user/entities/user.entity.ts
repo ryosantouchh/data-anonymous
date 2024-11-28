@@ -1,7 +1,9 @@
+import { Comment } from '@app/domain/post/entities/comment.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,6 +24,12 @@ export class User {
 
   @Column({ name: 'password', nullable: true, select: false })
   password: string;
+
+  @Column({ name: 'profile_image_url', nullable: true })
+  profileImageUrl: string;
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   @Column({ name: 'deleted_at', type: 'timestamptz', nullable: true })
   deletedAt: Date;

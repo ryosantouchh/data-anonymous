@@ -8,7 +8,7 @@ const dataSourceOptions: DataSourceOptions = {
   password: '1234',
   database: 'data_anonymous_db',
   migrations: ['dist/migrations/*.js'],
-  entities: ['dist/domain/**/*.entity.js}'],
+  entities: ['dist/src/domain/**/*.entity.js}'],
 };
 
 const connectionSource = new DataSource(dataSourceOptions);

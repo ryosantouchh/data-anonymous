@@ -9,6 +9,7 @@ export class BootstrapSeed1732814494631 implements MigrationInterface {
                 "password" VARCHAR,
                 "first_name" VARCHAR,
                 "last_name" VARCHAR,
+                "profile_image_url" VARCHAR,
                 "deleted_at" TIMESTAMPTZ DEFAULT null,
                 "created_at" TIMESTAMPTZ DEFAULT now(),
                 "updated_at" TIMESTAMPTZ DEFAULT now()
@@ -28,6 +29,8 @@ export class BootstrapSeed1732814494631 implements MigrationInterface {
     await queryRunner.query(`
             CREATE TABLE "posts" (
                 "id" SERIAL PRIMARY KEY,
+                "title" VARCHAR NOT NULL,
+                "content" VARCHAR NOT NULL,
                 "user_id" INT NOT NULL,
                 "category_id" INT NOT NULL,
                 "deleted_at" TIMESTAMPTZ DEFAULT null,
@@ -43,9 +46,33 @@ export class BootstrapSeed1732814494631 implements MigrationInterface {
                     REFERENCES "categories"("id")
             );
         `);
+
+    await queryRunner.query(`
+            CREATE TABLE "comments" (
+                "id" SERIAL PRIMARY KEY,
+                "content" VARCHAR NOT NULL,
+                "user_id" INT NOT NULL,
+                "post_id" INT NOT NULL,
+                "deleted_at" TIMESTAMPTZ DEFAULT null,
+                "created_at" TIMESTAMPTZ DEFAULT now(),
+                "updated_at" TIMESTAMPTZ DEFAULT now(),
+
+                 CONSTRAINT "fk_user_comment" 
+                    FOREIGN KEY ("user_id") 
+                    REFERENCES "users"("id"),
+
+                 CONSTRAINT "fk_post_comment" 
+                    FOREIGN KEY ("post_id") 
+                    REFERENCES "posts"("id")
+            );
+        `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+            DROP TABLE IF EXISTS "comments";
+        `);
+
     await queryRunner.query(`
             DROP TABLE IF EXISTS "posts";
         `);
