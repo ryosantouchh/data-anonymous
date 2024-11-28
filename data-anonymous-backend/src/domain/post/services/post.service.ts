@@ -5,6 +5,7 @@ import { Post } from '../entities';
 import { generatePagination, getPaginationValue } from '@app/common/utils';
 import { CreatePostDto, UpdatePostDto } from '../dto';
 import { UserService } from '@app/domain/user/services';
+import { CategoryService } from './category.service';
 
 @Injectable()
 export class PostService {
@@ -13,18 +14,22 @@ export class PostService {
     private _postRepository: Repository<Post>,
 
     private _userService: UserService,
-    // private _categoryService: CategoryService,
-  ) { }
+    private _categoryService: CategoryService,
+  ) {}
 
   async createPost(createPostDto: CreatePostDto) {
     try {
-      const { categoryId } = createPostDto;
-      // TODO : find one cat here
+      const { userId, categoryId } = createPostDto;
+
+      const [user, category] = await Promise.all([
+        this._userService.findOne(userId),
+        this._categoryService.findOne(categoryId),
+      ]);
 
       const newPost = this._postRepository.create(createPostDto);
-      // newPost.category = category
-      // newPost.user = user
-      //
+      newPost.category = category;
+      newPost.user = user;
+
       const { id: postId } = await this._postRepository.save(newPost);
 
       return postId;

@@ -1,3 +1,4 @@
+import { Post } from '@app/domain/post/entities';
 import { Comment } from '@app/domain/post/entities/comment.entity';
 import {
   Column,
@@ -30,6 +31,9 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 
   @Column({ name: 'deleted_at', type: 'timestamptz', nullable: true })
   deletedAt: Date;

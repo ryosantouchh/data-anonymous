@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Comment } from './comment.entity';
 import { Category } from './category.entity';
+import { User } from '@app/domain/user/entities';
 
 @Entity('posts')
 export class Post {
@@ -28,6 +29,10 @@ export class Post {
   @ManyToOne(() => Category, (category) => category.posts)
   @JoinColumn({ name: 'category_id' })
   category: Category;
+
+  @ManyToOne(() => User, (user) => user.posts)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column({ name: 'deleted_at', type: 'timestamptz', nullable: true })
   deletedAt: Date;
