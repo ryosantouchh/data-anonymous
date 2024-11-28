@@ -9,9 +9,9 @@ export class BootstrapSeed1732814494631 implements MigrationInterface {
                 "password" VARCHAR,
                 "first_name" VARCHAR,
                 "last_name" VARCHAR,
-                "deletedAt" TIMESTAMPTZ DEFAULT null,
-                "createdAt" TIMESTAMPTZ DEFAULT now(),
-                "updatedAt" TIMESTAMPTZ DEFAULT now()
+                "deleted_at" TIMESTAMPTZ DEFAULT null,
+                "created_at" TIMESTAMPTZ DEFAULT now(),
+                "updated_at" TIMESTAMPTZ DEFAULT now()
             );
         `);
 
@@ -19,9 +19,9 @@ export class BootstrapSeed1732814494631 implements MigrationInterface {
             CREATE TABLE "categories" (
                 "id" SERIAL PRIMARY KEY,
                 "name" VARCHAR NOT NULL,
-                "deletedAt" TIMESTAMPTZ DEFAULT null,
-                "createdAt" TIMESTAMPTZ DEFAULT now(),
-                "updatedAt" TIMESTAMPTZ DEFAULT now()
+                "deleted_at" TIMESTAMPTZ DEFAULT null,
+                "created_at" TIMESTAMPTZ DEFAULT now(),
+                "updated_at" TIMESTAMPTZ DEFAULT now()
             );
         `);
 
@@ -30,13 +30,13 @@ export class BootstrapSeed1732814494631 implements MigrationInterface {
                 "id" SERIAL PRIMARY KEY,
                 "user_id" INT NOT NULL,
                 "category_id" INT NOT NULL,
-                "deletedAt" TIMESTAMPTZ DEFAULT null,
-                "createdAt" TIMESTAMPTZ DEFAULT now(),
-                "updatedAt" TIMESTAMPTZ DEFAULT now(),
+                "deleted_at" TIMESTAMPTZ DEFAULT null,
+                "created_at" TIMESTAMPTZ DEFAULT now(),
+                "updated_at" TIMESTAMPTZ DEFAULT now(),
 
                  CONSTRAINT "fk_user_post" 
                     FOREIGN KEY ("user_id") 
-                    REFERENCES "users"("id")
+                    REFERENCES "users"("id"),
 
                  CONSTRAINT "fk_category_post" 
                     FOREIGN KEY ("category_id") 
