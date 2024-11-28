@@ -5,7 +5,7 @@ import { HttpExceptionFilter } from './common/exception/http-exception.filter';
 import { Logger as PinoLogger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  const app = await NestFactory.create(AppModule);
 
   app.useGlobalFilters(new HttpExceptionFilter());
 

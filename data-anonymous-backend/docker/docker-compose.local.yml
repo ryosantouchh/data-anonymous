@@ -1,0 +1,13 @@
+version: '2.28'
+
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=data_anonymous_db
+    ports:
+      - '5432:5432'
+    container_name: 'data-anonymous-db'
