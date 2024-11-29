@@ -11,6 +11,17 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        black: "var(--black)",
+        white: "var(--white)",
+        text: "var(--text)",
+        golden: "var(--golden)",
+        success: "var(--success)",
+
+        "green-500": "#243831",
+        "green-300": "#2B5F44",
+        "green-100": "#D8E9E4",
+        "gray-100": "#BBC2C0",
+        "gray-300": "#939494",
       },
     },
   },
