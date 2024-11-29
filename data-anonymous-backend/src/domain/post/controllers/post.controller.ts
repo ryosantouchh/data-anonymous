@@ -16,6 +16,7 @@ import { BaseHttpResponse, HttpResponse } from '@app/common/dto';
 import { CreatePostDto, UpdatePostDto } from '../dto';
 import {
   CreatePostUsecase,
+  FindAllPostByUserUsecase,
   FindAllPostUsecase,
   FindPostByIdUsecase,
   SoftDeletePostUsecase,
@@ -28,6 +29,7 @@ export class PostController {
   constructor(
     private createPostUsecase: CreatePostUsecase,
     private findAllPostUsecase: FindAllPostUsecase,
+    private findAllPostByUserUsecase: FindAllPostByUserUsecase,
     private findPostByIdUsecase: FindPostByIdUsecase,
     private updatePostUsecase: UpdatePostUsecase,
     private softDeletePostUsecase: SoftDeletePostUsecase,
@@ -80,6 +82,28 @@ export class PostController {
     });
   }
 
+  @Get('by/me')
+  @UseGuards(JwtAuthGuard)
+  async findAllByMe(
+    @Request()
+    req: ExpressRequest & { userId: number },
+
+    @Query('page') page?: string,
+    @Query('pageSize') pageSize?: string,
+  ) {
+    const posts = await this.findAllPostByUserUsecase.execute({
+      userId: req.userId,
+      ...(page ? { page: +page } : {}),
+      ...(pageSize ? { pageSize: +pageSize } : {}),
+    });
+
+    return new HttpResponse({
+      statusCode: HttpStatus.OK,
+      message: 'find post by user successfully',
+      ...posts,
+    });
+  }
+
   @Patch(':postId')
   @UseGuards(JwtAuthGuard)
   async update(
@@ -110,7 +134,7 @@ export class PostController {
 
     return new BaseHttpResponse({
       statusCode: HttpStatus.OK,
-      message: 'soft delete post by id successfully',
+      message: 'delete post by id successfully',
     });
   }
 }

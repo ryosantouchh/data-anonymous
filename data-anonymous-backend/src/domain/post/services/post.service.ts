@@ -24,7 +24,7 @@ export class PostService {
 
     private _userService: UserService,
     private _categoryService: CategoryService,
-  ) {}
+  ) { }
 
   async createPost(createPostDto: CreatePostDto) {
     try {
@@ -47,19 +47,32 @@ export class PostService {
     }
   }
 
-  async findAll({ page, pageSize }: { page?: number; pageSize?: number }) {
+  async findAll({
+    page,
+    pageSize,
+    userId,
+  }: {
+    page?: number;
+    pageSize?: number;
+    userId?: number;
+  }) {
     try {
       const { skip, take } = getPaginationValue({
         page: page || DEFAULT_PAGE,
         pageSize: pageSize || DEFAULT_ITEM_PER_PAGE,
       });
 
-      const [posts, totalCounts] = await this.initQueryBuilder()
+      const qb = this.initQueryBuilder()
         .andWhere('post.deletedAt IS NULL')
         .orderBy('post.id', 'DESC')
         .skip(skip)
-        .take(take)
-        .getManyAndCount();
+        .take(take);
+
+      if (userId) {
+        qb.andWhere('post.user = :userId', { userId });
+      }
+
+      const [posts, totalCounts] = await qb.getManyAndCount();
 
       return {
         data: posts,
@@ -73,6 +86,8 @@ export class PostService {
   async findOne(postId: number) {
     try {
       const postById = await this.initQueryBuilder()
+        .leftJoin('post.comments', 'comment')
+        .addSelect(['comment'])
         .andWhere({ id: postId })
         .getOne();
 
@@ -109,13 +124,14 @@ export class PostService {
   async softDelete(postId: number, userId: number) {
     try {
       const { user } = await this.findOne(postId);
-      await this._postRepository.update(postId, { deletedAt: new Date() });
 
       if (user.id !== userId) {
         throw new ForbiddenException(
           'cannot soft delete post since this post is not belong to user',
         );
       }
+
+      await this._postRepository.update(postId, { deletedAt: new Date() });
 
       return;
     } catch (error) {
