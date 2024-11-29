@@ -12,11 +12,11 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
 
-        black: "var(--black)",
-        white: "var(--white)",
-        text: "var(--text)",
-        golden: "var(--golden)",
-        success: "var(--success)",
+        black: "#000000",
+        white: "#ffffff",
+        text: "#191919",
+        golden: "#c5a365",
+        success: "#49a569",
 
         "green-500": "#243831",
         "green-300": "#2B5F44",

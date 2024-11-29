@@ -1,4 +1,4 @@
-export default function ClearButton({
+export default function SuccessButton({
   text,
   handleOnClick,
 }: {
@@ -7,10 +7,10 @@ export default function ClearButton({
 }) {
   return (
     <button
-      className="bg-white rounded-lg w-[105px] h-[40px] border border-success"
+      className="bg-success rounded-lg w-[105px] h-[40px] border-1 border-success"
       {...(handleOnClick ? { onClick: handleOnClick } : {})}
     >
-      <span className="text-success">{text}</span>
+      <span className="text-white">{text}</span>
     </button>
   );
 }

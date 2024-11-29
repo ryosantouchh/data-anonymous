@@ -1,7 +1,14 @@
+import { ClearButton, SuccessButton } from "@/components";
 import Image from "next/image";
 
 export default function HomePage() {
-  return <div>home page</div>;
+  return (
+    <div>
+      <SuccessButton text={"test"} />
+      <ClearButton text={"test"} />
+      home page
+    </div>
+  );
 }
 
 // export default function Home() {
