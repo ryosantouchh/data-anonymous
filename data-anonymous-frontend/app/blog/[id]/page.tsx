@@ -1,3 +1,3 @@
 export default function BlogPageById() {
-  return <div>blog page by id</div>;
+  return <div>Blog Page By Id</div>;
 }
