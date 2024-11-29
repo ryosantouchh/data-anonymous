@@ -24,7 +24,7 @@ export class PostService {
 
     private _userService: UserService,
     private _categoryService: CategoryService,
-  ) { }
+  ) {}
 
   async createPost(createPostDto: CreatePostDto) {
     try {
