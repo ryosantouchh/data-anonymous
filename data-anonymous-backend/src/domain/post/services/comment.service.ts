@@ -41,25 +41,25 @@ export class CommentService {
     }
   }
 
-  async findOne(postId: number) {
+  async findOne(commentId: number) {
     try {
-      const postById = await this.initQueryBuilder()
-        .andWhere({ id: postId })
+      const commentById = await this.initQueryBuilder()
+        .andWhere({ id: commentId })
         .getOne();
 
-      if (!postById) {
-        throw new NotFoundException('post by id is not found');
+      if (!commentById) {
+        throw new NotFoundException('comment by id is not found');
       }
 
-      return postById;
+      return commentById;
     } catch (error) {
       throw error;
     }
   }
 
-  async updateComment(postId: number, updateCommentDto: UpdateCommentDto) {
+  async updateComment(commentId: number, updateCommentDto: UpdateCommentDto) {
     try {
-      const { user } = await this.findOne(postId);
+      const { user } = await this.findOne(commentId);
 
       if (user.id !== updateCommentDto.userId) {
         throw new ForbiddenException(
@@ -67,7 +67,7 @@ export class CommentService {
         );
       }
 
-      await this._commentRepository.update(postId, {
+      await this._commentRepository.update(commentId, {
         content: updateCommentDto.content,
       });
 
@@ -100,7 +100,9 @@ export class CommentService {
   initQueryBuilder() {
     const qb = this._commentRepository
       .createQueryBuilder('comment')
-      .select(['comment']);
+      .leftJoin('comment.user', 'user')
+      .leftJoin('comment.post', 'post')
+      .select(['comment', 'user', 'post.id', 'post.title']);
 
     return qb;
   }

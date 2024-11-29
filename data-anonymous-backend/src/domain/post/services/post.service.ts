@@ -51,10 +51,12 @@ export class PostService {
     page,
     pageSize,
     userId,
+    categoryId,
   }: {
     page?: number;
     pageSize?: number;
     userId?: number;
+    categoryId?: number;
   }) {
     try {
       const { skip, take } = getPaginationValue({
@@ -70,6 +72,10 @@ export class PostService {
 
       if (userId) {
         qb.andWhere('post.user = :userId', { userId });
+      }
+
+      if (categoryId) {
+        qb.andWhere('post.category = :categoryId', { categoryId });
       }
 
       const [posts, totalCounts] = await qb.getManyAndCount();

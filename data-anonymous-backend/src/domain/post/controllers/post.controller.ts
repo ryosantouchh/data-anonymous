@@ -69,10 +69,12 @@ export class PostController {
   async findAll(
     @Query('page') page?: string,
     @Query('pageSize') pageSize?: string,
+    @Query('categoryId') categoryId?: string,
   ) {
     const posts = await this.findAllPostUsecase.execute({
       ...(page ? { page: +page } : {}),
       ...(pageSize ? { pageSize: +pageSize } : {}),
+      ...(categoryId ? { categoryId: +categoryId } : {}),
     });
 
     return new HttpResponse({

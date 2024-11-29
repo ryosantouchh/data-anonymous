@@ -60,6 +60,10 @@ export class UserService {
 
       const user = await qb.getOne();
 
+      if (isNil(user)) {
+        throw new UnauthorizedException('wrong username or password');
+      }
+
       const isValidated = await this.validateUser({
         password,
         hashedPassword: user.password,
@@ -70,10 +74,6 @@ export class UserService {
       }
 
       delete user.password;
-
-      if (isNil(user)) {
-        throw new UnauthorizedException('wrong username or password');
-      }
 
       const payload = {
         id: user.id,

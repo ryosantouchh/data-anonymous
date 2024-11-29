@@ -21,8 +21,10 @@ import { PostController } from './controllers/post.controller';
 import {
   CreateCommentUsecase,
   FindCommentByIdUsecase,
+  SoftDeleteCommnetUsecase,
   UpdateCommentUsecase,
 } from './usecase/comment';
+import { CommentController } from './controllers/comment.controller';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import {
     JwtModule,
     UserModule,
   ],
-  controllers: [CategoryController, PostController],
+  controllers: [CategoryController, PostController, CommentController],
   providers: [
     JwtService,
     PostService,
@@ -51,8 +53,8 @@ import {
     CreateCommentUsecase,
     FindCommentByIdUsecase,
     UpdateCommentUsecase,
-    SoftDeletePostUsecase,
+    SoftDeleteCommnetUsecase,
   ],
   exports: [PostService, CategoryService, CommentService],
 })
-export class PostModule { }
+export class PostModule {}
