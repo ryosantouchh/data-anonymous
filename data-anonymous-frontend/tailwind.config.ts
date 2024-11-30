@@ -26,6 +26,11 @@ const config: Config = {
         "gray-100": "#BBC2C0",
         "gray-300": "#939494",
       },
+
+      gridTemplateColumns: {
+        "layout-1": "280px minmax(640px, 880px) 280px",
+        "layout-2": "280px 1fr",
+      },
     },
   },
   plugins: [],

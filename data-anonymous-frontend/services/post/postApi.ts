@@ -7,8 +7,11 @@ export async function fetchPostsService() {
   return data;
 }
 
-export async function fetchPostByIdService() {
-  const { data } = await apiService({ method: "GET", endPoint: BASE_URL });
+export async function fetchPostByIdService(postId: number) {
+  const { data } = await apiService({
+    method: "GET",
+    endPoint: `${BASE_URL}/${postId}`,
+  });
   return data;
 }
 
