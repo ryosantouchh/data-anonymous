@@ -9,7 +9,12 @@ export default function HomeLayout({
     <div className="bg-gray-100">
       <Navbar />
       <SideBar />
-      <div className="flex justify-center w-[100%] pt-8">{children}</div>
+
+      <div className="flex justify-center w-[100%] pt-8">
+        <div className="w-[800px]">
+          <div className={`flex flex-col`}>{children}</div>
+        </div>
+      </div>
     </div>
   );
 }

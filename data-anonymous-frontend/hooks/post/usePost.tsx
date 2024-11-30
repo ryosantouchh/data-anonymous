@@ -4,7 +4,7 @@ import { fetchPostsService } from "@/services";
 import usePostStore from "./usePostStore";
 
 export default function usePost() {
-  const { posts, appendPost } = usePostStore();
+  const { posts, appendPost, clearPost } = usePostStore();
 
   const fetchPosts = async () => {
     const data = await fetchPostsService();
@@ -13,6 +13,8 @@ export default function usePost() {
 
   useEffect(() => {
     fetchPosts();
+
+    return () => clearPost();
   }, []);
 
   return { posts, appendPost };

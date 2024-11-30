@@ -6,13 +6,7 @@ import { usePost } from "@/hooks";
 export default function HomePage() {
   const { posts } = usePost();
 
-  return (
-    <div className="w-[800px]">
-      <div className={`flex flex-col`}>
-        <PostCard posts={posts} />
-      </div>
-    </div>
-  );
+  return <PostCard posts={posts} />;
 }
 
 // export default function Home() {
