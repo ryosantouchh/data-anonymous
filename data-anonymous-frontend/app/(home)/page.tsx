@@ -1,12 +1,16 @@
-import { ClearButton, SuccessButton } from "@/components";
-import Image from "next/image";
+"use client";
+
+import { ClearButton, PostCard, SuccessButton } from "@/components";
+import { usePost } from "@/hooks";
 
 export default function HomePage() {
+  const { posts } = usePost();
+
   return (
-    <div>
-      <SuccessButton text={"test"} />
-      <ClearButton text={"test"} />
-      home page
+    <div className="w-[800px]">
+      <div className={`flex flex-col`}>
+        <PostCard posts={posts} />
+      </div>
     </div>
   );
 }

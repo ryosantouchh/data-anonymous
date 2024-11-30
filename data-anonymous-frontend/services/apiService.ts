@@ -32,8 +32,9 @@ export const apiService = async <TData>({
     };
 
     const response = await axios(apiConfig);
+    const { data: responseData } = response;
 
-    return response;
+    return responseData;
   } catch (error) {
     throw error;
   }

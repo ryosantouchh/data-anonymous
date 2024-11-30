@@ -33,7 +33,7 @@ export class PostController {
     private findPostByIdUsecase: FindPostByIdUsecase,
     private updatePostUsecase: UpdatePostUsecase,
     private softDeletePostUsecase: SoftDeletePostUsecase,
-  ) {}
+  ) { }
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -53,7 +53,6 @@ export class PostController {
   }
 
   @Get(':postId')
-  @UseGuards(JwtAuthGuard)
   async findOne(@Param('postId') postId: string) {
     const postById = await this.findPostByIdUsecase.execute(+postId);
 
@@ -65,7 +64,6 @@ export class PostController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
   async findAll(
     @Query('page') page?: string,
     @Query('pageSize') pageSize?: string,

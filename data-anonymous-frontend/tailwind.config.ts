@@ -14,9 +14,11 @@ const config: Config = {
 
         black: "#000000",
         white: "#ffffff",
+        surface: "#f3f3f3",
         text: "#191919",
         golden: "#c5a365",
         success: "#49a569",
+        dark: "#101828",
 
         "green-500": "#243831",
         "green-300": "#2B5F44",

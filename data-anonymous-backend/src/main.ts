@@ -3,10 +3,13 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { HttpExceptionFilter } from './common/exception/http-exception.filter';
 import { Logger as PinoLogger } from 'nestjs-pino';
+import { ValidationPipe } from '@nestjs/common';
+import { validatorConfig } from './common/validator/validator.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.useGlobalPipes(new ValidationPipe(validatorConfig));
   app.useGlobalFilters(new HttpExceptionFilter());
 
   app.enableCors({

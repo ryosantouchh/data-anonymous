@@ -12,10 +12,12 @@
     --background: #0a0a0a;
     --foreground: #ededed;
     --black: #000000;
+    --surface: #f3f3f3;
     --white: #ffffff;
     --text: #191919;
     --golden: #c5a365;
     --success: #49a569;
+    --dark: #101828;
   }
 }
 
