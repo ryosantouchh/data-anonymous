@@ -14,13 +14,11 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
   const [post, setPost] = useState({});
   const [isShowCommentInput, setIsShowCommentInput] = useState(false);
   const [commentInput, setCommentInput] = useState("");
-  // const [newCommentList, setNewCommentList] = useState<
-  //   Array<{ content: string }>
-  // >([]);
 
-  const { comments: newCommentList, setComments: setNewCommentList } = useCommentStore()
+  const { comments: newCommentList, setComments: setNewCommentList } =
+    useCommentStore();
 
-  const screenSize = useScreenSize()
+  const screenSize = useScreenSize();
 
   const router = useRouter();
   const { id: postId } = params;
@@ -30,7 +28,10 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
     setPost(data);
   };
 
-  const { isShowModal: isShowAddCommentModal, setIsShowModal: setIsShowAddCommentModal} = useAddCommentModal()
+  const {
+    isShowModal: isShowAddCommentModal,
+    setIsShowModal: setIsShowAddCommentModal,
+  } = useAddCommentModal();
 
   const handleSubmitComment = async () => {
     if (commentInput) {
@@ -39,7 +40,7 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
         postId: +postId,
       });
 
-      const updateList = [createdComment, ...newCommentList]
+      const updateList = [createdComment, ...newCommentList];
       setNewCommentList(updateList);
 
       setCommentInput("");
@@ -87,7 +88,12 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
           </div>
         </div>
 
-        {isShowAddCommentModal && <AddCommentModal setNewCommentList={setNewCommentList} postId={postId} />}
+        {isShowAddCommentModal && (
+          <AddCommentModal
+            setNewCommentList={setNewCommentList}
+            postId={postId}
+          />
+        )}
 
         {isShowCommentInput ? (
           <div className="flex flex-col gap-2">
@@ -117,11 +123,11 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
           <button
             className={`bg-white rounded-lg w-[132px] h-[40px] border border-success`}
             onClick={() => {
-                if (screenSize.width >= 640) {
-                  setIsShowCommentInput(true)
-                } else {
-                  setIsShowAddCommentModal(true)
-                }
+              if (screenSize.width >= 640) {
+                setIsShowCommentInput(true);
+              } else {
+                setIsShowAddCommentModal(true);
+              }
             }}
           >
             <span className="text-success font-semibold text-sm">

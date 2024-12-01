@@ -9,3 +9,7 @@ export { default as DeleteIcon } from "./delete";
 export { default as EditIcon } from "./edit";
 export { default as CorrectIcon } from "./correct";
 export { default as ChevronDownGreenIcon } from "./chevronDownGreen";
+export { default as ArrowRightWhiteIcon } from "./arrowRightWhite";
+export { default as HomeWhiteIcon } from "./homeWhite";
+export { default as BlogWhiteIcon } from "./blogWhite";
+export { default as HamburgerWhiteIcon } from "./hamburgerWhite";

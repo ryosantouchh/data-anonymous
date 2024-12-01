@@ -1,15 +1,19 @@
 "use client";
 
-import { Navbar, SideBar } from "@/components";
+import { Navbar, SideBar, SideBarMobile } from "@/components";
+import { useSideBarMobile } from "@/hooks";
 
 export default function BlogByIdLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isShowSideBarMobile } = useSideBarMobile();
+
   return (
     <div className="bg-gray-100">
       <Navbar />
+      {isShowSideBarMobile && <SideBarMobile />}
 
       <div className="block sm:grid sm:grid-cols-layout-2 justify-center w-[100%] h-full sm:h-[calc(100vh-60px)]">
         <SideBar />
