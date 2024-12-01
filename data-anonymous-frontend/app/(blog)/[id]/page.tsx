@@ -6,16 +6,21 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import avatarImage from "../../../public/images/avatar.png";
 import { isEmpty } from "lodash";
-import { CommentCard } from "@/components";
+import { AddCommentModal, CommentCard } from "@/components";
 import { useRouter } from "next/navigation";
+import { useAddCommentModal, useCommentStore, useScreenSize } from "@/hooks";
 
 export default function BlogPageById({ params }: { params: { id: number } }) {
   const [post, setPost] = useState({});
   const [isShowCommentInput, setIsShowCommentInput] = useState(false);
   const [commentInput, setCommentInput] = useState("");
-  const [newCommentList, setNewCommentList] = useState<
-    Array<{ content: string }>
-  >([]);
+  // const [newCommentList, setNewCommentList] = useState<
+  //   Array<{ content: string }>
+  // >([]);
+
+  const { comments: newCommentList, setComments: setNewCommentList } = useCommentStore()
+
+  const screenSize = useScreenSize()
 
   const router = useRouter();
   const { id: postId } = params;
@@ -25,13 +30,17 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
     setPost(data);
   };
 
+  const { isShowModal: isShowAddCommentModal, setIsShowModal: setIsShowAddCommentModal} = useAddCommentModal()
+
   const handleSubmitComment = async () => {
     if (commentInput) {
       const createdComment = await createCommentService({
         content: commentInput,
         postId: +postId,
       });
-      setNewCommentList((prev) => [createdComment, ...prev]);
+
+      const updateList = [createdComment, ...newCommentList]
+      setNewCommentList(updateList);
 
       setCommentInput("");
       setIsShowCommentInput(false);
@@ -78,6 +87,8 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
           </div>
         </div>
 
+        {isShowAddCommentModal && <AddCommentModal setNewCommentList={setNewCommentList} postId={postId} />}
+
         {isShowCommentInput ? (
           <div className="flex flex-col gap-2">
             <textarea
@@ -105,7 +116,13 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
         ) : (
           <button
             className={`bg-white rounded-lg w-[132px] h-[40px] border border-success`}
-            onClick={() => setIsShowCommentInput(true)}
+            onClick={() => {
+                if (screenSize.width >= 640) {
+                  setIsShowCommentInput(true)
+                } else {
+                  setIsShowAddCommentModal(true)
+                }
+            }}
           >
             <span className="text-success font-semibold text-sm">
               Add Comment

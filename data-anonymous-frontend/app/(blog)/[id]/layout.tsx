@@ -1,3 +1,5 @@
+"use client";
+
 import { Navbar, SideBar } from "@/components";
 
 export default function BlogByIdLayout({

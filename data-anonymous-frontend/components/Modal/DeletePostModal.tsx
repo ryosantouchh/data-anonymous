@@ -33,7 +33,7 @@ export default function DeletePostModal() {
 
   return (
     <div className="fixed left-0 top-0 h-screen w-screen flex justify-center items-center bg-black bg-opacity-50">
-      <div className="relative bg-white p-6 rounded-xl w-[400px]">
+      <div className="relative bg-white p-6 rounded-xl w-[90%] sm:w-[400px]">
         <h2 className="text-[16px] font-semibold mb-4 text-dark text-center">
           Please confirm if you wish to delete the post
         </h2>
@@ -43,7 +43,7 @@ export default function DeletePostModal() {
           recovered.
         </p>
 
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 flex-col-reverse sm:flex-row justify-center">
           <button
             className={`bg-white rounded-lg w-full h-[40px] border border-[#DADADA]`}
             onClick={() => setIsShowDeletePostModal(false)}
