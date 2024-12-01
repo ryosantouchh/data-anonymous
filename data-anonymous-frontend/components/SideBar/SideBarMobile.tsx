@@ -2,7 +2,6 @@
 
 import { useSideBarMobile } from "@/hooks";
 import { ArrowRightWhiteIcon, BlogWhiteIcon, HomeWhiteIcon } from "@/icons";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 

@@ -121,7 +121,7 @@ export default function CreatePostModal() {
 
           {isShowDropdown && (
             <ul className="absolute bg-white w-full sm:w-[200px] left-0 top-10 sm:top-10 shadow-gray-100 shadow-inner rounded-lg">
-              {categories.map((category, index) => {
+              {categories.map((category) => {
                 return (
                   <li
                     key={category.id}
@@ -137,7 +137,7 @@ export default function CreatePostModal() {
                   >
                     <span>{category.name}</span>
                     {!isNil(selectedCommunity.id) &&
-                      category.id === selectedCommunity && (
+                      category.id === selectedCommunity.id && (
                         <span>
                           <CorrectIcon />
                         </span>

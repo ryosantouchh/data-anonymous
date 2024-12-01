@@ -1,14 +1,14 @@
 "use client";
 
 import { CommentIcon, DeleteIcon, EditIcon } from "@/icons";
-import { TPost } from "@/types";
+import { TPostData } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
 import avatar2Image from "../../public/images/avatar2.png";
 import Image from "next/image";
 import { useCreatePostModal, useDeletePostModal } from "@/hooks";
 import { useEffect } from "react";
 
-export default function PostCard({ posts }: { posts: TPost[] }) {
+export default function PostCard({ posts }: { posts: TPostData[] }) {
   const router = useRouter();
 
   const pathname = usePathname();

@@ -1,8 +1,9 @@
+import { TCategory } from "@/types";
 import { create } from "zustand";
 
 interface CategoryState {
-  categories: Array<Record<string, unknown>>;
-  setCategories: (fetchedCategories: Array<Record<string, unknown>>) => void;
+  categories: Array<TCategory>;
+  setCategories: (fetchedCategories: Array<TCategory>) => void;
   clearCategories: () => void;
 }
 

@@ -1,8 +1,9 @@
+import { TComment } from "@/types";
 import { create } from "zustand";
 
 interface CommentState {
-  comments: Array<unknown>;
-  setComments: (comment: unknown[]) => void;
+  comments: Array<TComment>;
+  setComments: (comment: TComment[]) => void;
   clearComments: () => void;
 }
 

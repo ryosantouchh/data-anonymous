@@ -77,7 +77,7 @@ export default function SearchBar() {
                 </span>
               )}
             </li>
-            {categories.map((category, index) => {
+            {categories.map((category) => {
               return (
                 <li
                   key={category.id}

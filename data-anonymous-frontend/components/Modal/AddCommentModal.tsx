@@ -4,7 +4,7 @@ import { useAddCommentModal, useCommentStore } from "@/hooks";
 import { createCommentService } from "@/services";
 import { useEffect, useState } from "react";
 
-export default function AddCommentModal({ postId }: { postId: string }) {
+export default function AddCommentModal({ postId }: { postId: number }) {
   const [content, setContent] = useState("");
 
   const { comments: newCommentList, setComments: setNewCommentList } =

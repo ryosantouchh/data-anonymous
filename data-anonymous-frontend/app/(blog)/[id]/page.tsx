@@ -9,9 +9,10 @@ import { isEmpty } from "lodash";
 import { AddCommentModal, CommentCard } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAddCommentModal, useCommentStore, useScreenSize } from "@/hooks";
+import { TPostData } from "@/types";
 
 export default function BlogPageById({ params }: { params: { id: number } }) {
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState<TPostData | null>(null);
   const [isShowCommentInput, setIsShowCommentInput] = useState(false);
   const [commentInput, setCommentInput] = useState("");
 
@@ -54,7 +55,7 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
     return () => {
       setCommentInput("");
       setNewCommentList([]);
-      setPost({});
+      setPost(null);
     };
   }, [postId]);
 
@@ -88,12 +89,7 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
           </div>
         </div>
 
-        {isShowAddCommentModal && (
-          <AddCommentModal
-            setNewCommentList={setNewCommentList}
-            postId={postId}
-          />
-        )}
+        {isShowAddCommentModal && <AddCommentModal postId={postId} />}
 
         {isShowCommentInput ? (
           <div className="flex flex-col gap-2">

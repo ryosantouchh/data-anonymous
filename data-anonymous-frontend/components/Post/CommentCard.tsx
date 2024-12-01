@@ -1,8 +1,9 @@
 "use client";
 
 import { UserIcon } from "@/icons";
+import { TComment } from "@/types";
 
-export default function CommentCard({ comment }) {
+export default function CommentCard({ comment }: { comment: TComment }) {
   return (
     <div className="flex flex-col gap-2 py-4">
       <div className="flex items-center gap-3">

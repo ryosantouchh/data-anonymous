@@ -1,12 +1,12 @@
-import { TPost } from "@/types";
+import { TPostData } from "@/types";
 import { create } from "zustand";
 
 interface PostState {
-  posts: Array<TPost>;
+  posts: Array<TPostData>;
   categoryId: number | null;
-  setPosts: (postList: TPost[]) => void;
-  appendSinglePost: (newPosts: TPost) => void;
-  appendPost: (newPosts: TPost[]) => void;
+  setPosts: (postList: TPostData[]) => void;
+  appendSinglePost: (newPosts: TPostData) => void;
+  appendPost: (newPosts: TPostData[]) => void;
   clearPost: () => void;
   setCategoryId: (id: number) => void;
   clearCategoryId: () => void;
