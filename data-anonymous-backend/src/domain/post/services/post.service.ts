@@ -25,7 +25,7 @@ export class PostService {
 
     private _userService: UserService,
     private _categoryService: CategoryService,
-  ) {}
+  ) { }
 
   async createPost(createPostDto: CreatePostDto) {
     try {
@@ -128,8 +128,18 @@ export class PostService {
         );
       }
 
+      const { title, categoryId, content } = updatePostDto;
+
+      let category: unknown;
+
+      if (categoryId) {
+        category = await this._categoryService.findOne(categoryId);
+      }
+
       await this._postRepository.update(postId, {
-        content: updatePostDto.content,
+        ...(content ? { content } : {}),
+        ...(title ? { title } : {}),
+        ...(category ? { category } : {}),
       });
 
       return;

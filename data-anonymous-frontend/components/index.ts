@@ -5,3 +5,4 @@ export * from "./Post";
 export * from "./SignInForm";
 export * from "./SessionProvider";
 export * from "./SearchBar";
+export * from "./Modal";

@@ -18,6 +18,7 @@ const config: Config = {
         text: "#191919",
         golden: "#c5a365",
         success: "#49a569",
+        critical: "#F23536",
         dark: "#101828",
 
         "green-500": "#243831",

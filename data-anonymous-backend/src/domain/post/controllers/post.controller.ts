@@ -46,7 +46,7 @@ export class PostController {
     createPostDto.userId = req.userId;
     const createdPost = await this.createPostUsecase.execute(createPostDto);
 
-    return new BaseHttpResponse({
+    return new HttpResponse({
       statusCode: HttpStatus.CREATED,
       message: 'create post successfully',
       data: createdPost,

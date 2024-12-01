@@ -7,10 +7,9 @@ import { usePathname } from "next/navigation";
 
 export default function SideBar() {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
-    <div className="w-[280px] flex flex-col gap-6 pt-8 px-6">
+    <div className="hidden sm:flex w-[280px] flex-col gap-6 pt-8 px-6">
       <Link className="flex gap-2" href="/">
         <HomeIcon />
         <span className={`text-[16px] ${pathname === "/" ? "font-bold" : ""}`}>

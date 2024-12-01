@@ -8,3 +8,4 @@ export { default as UserIcon } from "./user";
 export { default as DeleteIcon } from "./delete";
 export { default as EditIcon } from "./edit";
 export { default as CorrectIcon } from "./correct";
+export { default as ChevronDownGreenIcon } from "./chevronDownGreen";

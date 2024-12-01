@@ -107,7 +107,9 @@ export default function BlogPageById({ params }: { params: { id: number } }) {
             className={`bg-white rounded-lg w-[132px] h-[40px] border border-success`}
             onClick={() => setIsShowCommentInput(true)}
           >
-            <span className="text-success font-semibold">Add Comment</span>
+            <span className="text-success font-semibold text-sm">
+              Add Comment
+            </span>
           </button>
         )}
 

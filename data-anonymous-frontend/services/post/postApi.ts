@@ -31,3 +31,52 @@ export async function fetchPostByMeService() {
   });
   return data;
 }
+
+export async function createPostService(newPost: {
+  title: string;
+  content: string;
+  categoryId: number;
+}) {
+  const session = await getSession();
+
+  const { data } = await apiService({
+    method: "POST",
+    endPoint: `${BASE_URL}`,
+    data: newPost,
+    config: { accessToken: session!.accessToken },
+  });
+
+  return data;
+}
+
+export async function editPostService(
+  postId: number,
+  newPost: {
+    title?: string;
+    content?: string;
+    categoryId?: number;
+  },
+) {
+  const session = await getSession();
+
+  const { data } = await apiService({
+    method: "PATCH",
+    endPoint: `${BASE_URL}/${postId}`,
+    data: newPost,
+    config: { accessToken: session!.accessToken },
+  });
+
+  return data;
+}
+
+export async function deletePostService(postId: number) {
+  const session = await getSession();
+
+  const { data } = await apiService({
+    method: "DELETE",
+    endPoint: `${BASE_URL}/${postId}`,
+    config: { accessToken: session!.accessToken },
+  });
+
+  return data;
+}
