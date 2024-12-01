@@ -100,9 +100,12 @@ describe('PostService', () => {
 
   describe('findAll', () => {
     it('should return an arrays of posts', async () => {
+      postService.countCommentForPost = jest.fn().mockReturnValue(true);
       postService.initQueryBuilder = jest.fn().mockImplementation(() => {
         return {
           andWhere: jest.fn().mockReturnThis(),
+          leftJoin: jest.fn().mockReturnThis(),
+          addSelect: jest.fn().mockReturnThis(),
           orderBy: jest.fn().mockReturnThis(),
           skip: jest.fn().mockReturnThis(),
           take: jest.fn().mockReturnThis(),
@@ -115,9 +118,12 @@ describe('PostService', () => {
     });
 
     it('should return an arrays of posts by user_id', async () => {
+      postService.countCommentForPost = jest.fn().mockReturnValue(true);
       postService.initQueryBuilder = jest.fn().mockImplementation(() => {
         return {
           andWhere: jest.fn().mockReturnThis(),
+          leftJoin: jest.fn().mockReturnThis(),
+          addSelect: jest.fn().mockReturnThis(),
           orderBy: jest.fn().mockReturnThis(),
           skip: jest.fn().mockReturnThis(),
           take: jest.fn().mockReturnThis(),
@@ -131,9 +137,12 @@ describe('PostService', () => {
 
     it('should throw error if unexpected error occurs', async () => {
       try {
+        postService.countCommentForPost = jest.fn().mockReturnValue(true);
         postService.initQueryBuilder = jest.fn().mockImplementation(() => {
           return {
             andWhere: jest.fn().mockReturnThis(),
+            leftJoin: jest.fn().mockReturnThis(),
+            addSelect: jest.fn().mockReturnThis(),
             orderBy: jest.fn().mockReturnThis(),
             skip: jest.fn().mockReturnThis(),
             take: jest.fn().mockReturnThis(),

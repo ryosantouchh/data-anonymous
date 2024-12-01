@@ -25,7 +25,7 @@ export class PostService {
 
     private _userService: UserService,
     private _categoryService: CategoryService,
-  ) { }
+  ) {}
 
   async createPost(createPostDto: CreatePostDto) {
     try {
@@ -83,12 +83,7 @@ export class PostService {
 
       const [posts, totalCounts] = await qb.getManyAndCount();
 
-      // TODO : add this piece to the test
-      posts.forEach((post) => {
-        const commentCount = post.comments.length;
-        delete post.comments;
-        (post as FindAllPostDto).commentCount = commentCount;
-      });
+      this.countCommentForPost(posts);
 
       return {
         data: posts,
@@ -97,6 +92,14 @@ export class PostService {
     } catch (error) {
       throw error;
     }
+  }
+
+  countCommentForPost(posts: Post[]) {
+    posts.forEach((post) => {
+      const commentCount = post.comments.length;
+      delete post.comments;
+      (post as FindAllPostDto).commentCount = commentCount;
+    });
   }
 
   async findOne(postId: number) {

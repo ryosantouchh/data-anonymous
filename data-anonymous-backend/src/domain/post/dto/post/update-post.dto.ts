@@ -3,15 +3,15 @@ import { IsOptional, IsPositive, IsString } from 'class-validator';
 export class UpdatePostDto {
   @IsOptional()
   @IsPositive()
-  categoryId: number;
+  categoryId?: number;
 
   @IsOptional()
   @IsString()
-  title: string;
+  title?: string;
 
   @IsOptional()
   @IsString()
-  content: string;
+  content?: string;
 
   userId?: number;
 }
