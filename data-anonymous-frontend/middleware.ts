@@ -15,4 +15,4 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = { matcher: ["/", "/my-blog", "/me"] };
+export const config = { matcher: ["/", "/my-blog"] };

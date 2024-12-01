@@ -84,7 +84,7 @@ export default function PostCard({ posts }: { posts: TPostData[] }) {
           className="cursor-pointer"
           onClick={() => handleClickPostCard(post.id)}
         >
-          <h3 className="text-dark text-[16px]">{post.title}</h3>
+          <h3 className="text-dark text-[16px] font-medium">{post.title}</h3>
           <p className="text-dark text-xs mb-2">{post.content}</p>
           <div className="text-gray-300 text-xs flex items-center gap-1">
             <CommentIcon />

@@ -7,10 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Post } from '../entities';
 import {
-  DEFAULT_ITEM_PER_PAGE,
   DEFAULT_PAGE,
   generatePagination,
   getPaginationValue,
+  MAX_ITEM_PER_PAGE,
 } from '@app/common/utils';
 import { CreatePostDto, UpdatePostDto } from '../dto';
 import { UserService } from '@app/domain/user/services';
@@ -62,7 +62,7 @@ export class PostService {
     try {
       const { skip, take } = getPaginationValue({
         page: page || DEFAULT_PAGE,
-        pageSize: pageSize || DEFAULT_ITEM_PER_PAGE,
+        pageSize: pageSize || MAX_ITEM_PER_PAGE,
       });
 
       const qb = this.initQueryBuilder()
