@@ -9,9 +9,9 @@ export default function HomeLayout({
     <div className="bg-gray-100">
       <Navbar />
 
-      <div className="grid grid-cols-layout-1 justify-center w-[100%] pt-8">
+      <div className="grid grid-cols-layout-1 justify-center w-[100%]">
         <SideBar />
-        <div className="justify-self-center mb-12">
+        <div className="justify-self-center mb-12 w-full">
           <div className={`flex flex-col`}>{children}</div>
         </div>
       </div>

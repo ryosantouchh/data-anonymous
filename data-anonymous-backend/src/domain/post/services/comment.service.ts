@@ -33,9 +33,9 @@ export class CommentService {
       newComment.post = post;
       newComment.user = user;
 
-      const { id: commentId } = await this._commentRepository.save(newComment);
+      const createdComment = await this._commentRepository.save(newComment);
 
-      return commentId;
+      return createdComment;
     } catch (error) {
       throw error;
     }

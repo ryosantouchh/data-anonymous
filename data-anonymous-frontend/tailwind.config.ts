@@ -28,7 +28,7 @@ const config: Config = {
       },
 
       gridTemplateColumns: {
-        "layout-1": "280px minmax(640px, 880px) 280px",
+        "layout-1": "280px minmax(640px, 1fr) 280px",
         "layout-2": "280px 1fr",
       },
     },

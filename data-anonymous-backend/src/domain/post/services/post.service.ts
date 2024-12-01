@@ -15,6 +15,7 @@ import {
 import { CreatePostDto, UpdatePostDto } from '../dto';
 import { UserService } from '@app/domain/user/services';
 import { CategoryService } from './category.service';
+import { FindAllPostDto } from '../dto/post/find-all-post.dto';
 
 @Injectable()
 export class PostService {
@@ -39,9 +40,9 @@ export class PostService {
       newPost.category = category;
       newPost.user = user;
 
-      const { id: postId } = await this._postRepository.save(newPost);
+      const createdPost = await this._postRepository.save(newPost);
 
-      return postId;
+      return createdPost;
     } catch (error) {
       throw error;
     }
@@ -65,6 +66,8 @@ export class PostService {
       });
 
       const qb = this.initQueryBuilder()
+        .leftJoin('post.comments', 'comment')
+        .addSelect(['comment.id'])
         .andWhere('post.deletedAt IS NULL')
         .orderBy('post.id', 'DESC')
         .skip(skip)
@@ -80,6 +83,13 @@ export class PostService {
 
       const [posts, totalCounts] = await qb.getManyAndCount();
 
+      // TODO : add this piece to the test
+      posts.forEach((post) => {
+        const commentCount = post.comments.length;
+        delete post.comments;
+        (post as FindAllPostDto).commentCount = commentCount;
+      });
+
       return {
         data: posts,
         pagination: generatePagination({ totalCounts, skip, take }),
@@ -93,7 +103,8 @@ export class PostService {
     try {
       const postById = await this.initQueryBuilder()
         .leftJoin('post.comments', 'comment')
-        .addSelect(['comment'])
+        .leftJoin('comment.user', 'commentUser')
+        .addSelect(['comment', 'commentUser'])
         .andWhere({ id: postId })
         .getOne();
 

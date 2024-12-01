@@ -33,7 +33,7 @@ export class PostController {
     private findPostByIdUsecase: FindPostByIdUsecase,
     private updatePostUsecase: UpdatePostUsecase,
     private softDeletePostUsecase: SoftDeletePostUsecase,
-  ) { }
+  ) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -44,11 +44,12 @@ export class PostController {
     @Body() createPostDto: CreatePostDto,
   ) {
     createPostDto.userId = req.userId;
-    await this.createPostUsecase.execute(createPostDto);
+    const createdPost = await this.createPostUsecase.execute(createPostDto);
 
     return new BaseHttpResponse({
       statusCode: HttpStatus.CREATED,
       message: 'create post successfully',
+      data: createdPost,
     });
   }
 

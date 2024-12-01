@@ -39,11 +39,13 @@ export class CommentController {
     @Body() createCommentDto: CreateCommentDto,
   ) {
     createCommentDto.userId = req.userId;
-    await this.createCommentUsecase.execute(createCommentDto);
+    const createdCommnet =
+      await this.createCommentUsecase.execute(createCommentDto);
 
-    return new BaseHttpResponse({
+    return new HttpResponse({
       statusCode: HttpStatus.CREATED,
       message: 'create comment successfully',
+      data: createdCommnet,
     });
   }
 

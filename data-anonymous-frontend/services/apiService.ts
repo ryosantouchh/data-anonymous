@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
+import { isEmpty } from "lodash";
 import { HTTP_METHOD } from "next/dist/server/web/http";
 
 export const apiService = async <TData>({
@@ -23,7 +24,7 @@ export const apiService = async <TData>({
     const apiConfig: AxiosRequestConfig<TData> = {
       method,
       url: `${endPoint}`,
-      ...(data || { data }),
+      ...(isEmpty(data) ? {} : { data }),
       headers: {
         ...headers,
         // TODO: some config here

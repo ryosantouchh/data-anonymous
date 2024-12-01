@@ -4,10 +4,13 @@ import { fetchPostsService } from "@/services";
 import usePostStore from "./usePostStore";
 
 export default function usePost() {
-  const { posts, appendPost, clearPost } = usePostStore();
+  const { posts, appendPost, clearPost, categoryId } = usePostStore();
 
-  const fetchPosts = async () => {
-    const data = await fetchPostsService();
+  const fetchPosts = async (categoryId?: number) => {
+    if (categoryId !== null) {
+      clearPost();
+    }
+    const data = await fetchPostsService(categoryId);
     appendPost(data);
   };
 
@@ -17,5 +20,11 @@ export default function usePost() {
     return () => clearPost();
   }, []);
 
-  return { posts, appendPost };
+  useEffect(() => {
+    if (categoryId !== null) {
+      fetchPosts(categoryId);
+    }
+  }, [categoryId]);
+
+  return { posts, appendPost, categoryId };
 }

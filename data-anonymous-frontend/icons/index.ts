@@ -3,3 +3,8 @@ export { default as BlogIcon } from "./home";
 export { default as HomeIcon } from "./blog";
 export { default as ChevronDownIcon } from "./chevronDown";
 export { default as MagnifierIcon } from "./magnifier";
+export { default as ArrowLeftIcon } from "./arrowLeft";
+export { default as UserIcon } from "./user";
+export { default as DeleteIcon } from "./delete";
+export { default as EditIcon } from "./edit";
+export { default as CorrectIcon } from "./correct";
